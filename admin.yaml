@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  s3admin:
+    image: dpage/pgadmin4:8
+    container_name: 68-s3-admin
+
+    restart: always
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASS}
+
+    ports:
+      - "127.0.0.1:${PGADMIN_PORT}:80"
+
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    networks:
+      - backend_net
+
+    security_opt:
+      - no-new-privileges:true
+
+
+volumes:
+  pgadmin_data:
+
+
+networks:
+  backend_net:
+    driver: bridge
